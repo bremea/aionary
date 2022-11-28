@@ -43,7 +43,23 @@
 			</div>
 			<div class="flex-grow h-full mx-6 flex flex-col">
 				<div class="h-32 mb-6 mbox flex flex-col justify-center items-center">
-					<p>Advertisement</p>
+					<script
+						async
+						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5296928207981957"
+						crossorigin="anonymous"
+					></script>
+					<!-- hznt -->
+					<ins
+						class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-5296928207981957"
+						data-ad-slot="3595922703"
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					/>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
 				</div>
 				<div class="mbox flex-grow flex flex-col justify-center">
 					<a
@@ -67,7 +83,23 @@
 					>
 				</div>
 				<div class="h-32 mt-6 mbox flex flex-col justify-center items-center">
-					<p>Advertisement</p>
+					<script
+						async
+						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5296928207981957"
+						crossorigin="anonymous"
+					></script>
+					<!-- hznt -->
+					<ins
+						class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-5296928207981957"
+						data-ad-slot="3595922703"
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					/>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
 				</div>
 			</div>
 			<div class="mw w-1/5 mbox h-full flex flex-col">
