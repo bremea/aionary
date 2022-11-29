@@ -34,13 +34,17 @@
 <div class="h-32 mbox flex flex-col justify-center items-center">
 	<div class="flex items-center">
 		{#each word.split('') as letter}
-			<p class={`${isLoad ? 'text-primary' : 'underline'} px-1`}>
-				{#if letter === ' '}
-					&nbsp;
-				{:else}
-					{letter}
-				{/if}
-			</p>
+			{#if letter === '_'}
+				<p class="px-1">&nbsp;</p>
+			{:else}
+				<p class={`${isLoad ? 'text-primary' : 'underline'} px-1`}>
+					{#if letter === ' '}
+						&nbsp;
+					{:else}
+						{letter}
+					{/if}
+				</p>
+			{/if}
 		{/each}
 	</div>
 	<p class="text-xs">Round {round} - {totalPlaying} playing - aionary.com</p>

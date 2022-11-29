@@ -28,7 +28,7 @@ body, .mbg {
 
 .mbox {
 	@apply p-6 bg-white rounded border border-black ssh;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .mbtn:hover {

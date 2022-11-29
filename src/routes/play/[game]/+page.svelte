@@ -87,7 +87,6 @@
 					break;
 				}
 				case 'word': {
-					console.log(msg);
 					round.setWord(msg.word);
 					break;
 				}
@@ -159,6 +158,9 @@
 				type="text"
 				class="rounded border border-black px-3 flex-grow text-center w-full"
 				placeholder="Your guess..."
+				on:keyup={(k) => {
+					if (k.code == 'Enter') guess();
+				}}
 				id="chval"
 			/>
 			<button
