@@ -42,7 +42,7 @@
 		const ctx = canvas.getContext('2d')!;
 		const image = new Image();
 		image.onload = function () {
-			ctx.drawImage(image, 0, 0);
+			ctx.drawImage(image, 0, 0, 256, 256);
 		};
 		image.src = img;
 		percent = prc;
