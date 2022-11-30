@@ -189,7 +189,7 @@
 				type="text"
 				class="rounded border border-black px-3 flex-grow text-center w-full"
 				placeholder="Your guess..."
-				value={chatmsg}
+				bind:value={chatmsg}
 				on:keyup={(k) => {
 					if (k.code == 'Enter') guess();
 				}}
