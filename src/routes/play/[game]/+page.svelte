@@ -191,13 +191,13 @@
 				class="rounded border border-black px-3 flex-grow text-center w-full"
 				placeholder="Your guess..."
 				bind:value={chatmsg}
+				autocomplete="off"
 				on:keyup={(k) => {
 					if (k.code == 'Enter') guess();
 				}}
 				id="chval"
 			/>
 			<button
-				href={''}
 				on:click={guess}
 				id="chbtn"
 				class="rounded border border-black px-3 ml-2 lg:ml-0 lg:mt-2 lg:w-full text-center transition hover:bg-primary active:scale-95"
