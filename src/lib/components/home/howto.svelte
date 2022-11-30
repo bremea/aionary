@@ -7,5 +7,13 @@
 			points allows you to move up the leaderboard.
 		</p>
 	</div>
-	<img src="/tutorial.gif" alt="tutorial" class="mt-3 self-center" width={200} />
+	<video
+		src="/tutorial.webm"
+		autoplay={true}
+		class="mt-3 self-center"
+		width={200}
+		height={200}
+	>
+		<track kind="captions" />
+	</video>
 </div>
