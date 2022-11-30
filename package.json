@@ -36,6 +36,8 @@
 	"dependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.100",
 		"centra": "^2.6.0",
-		"socket.io": "^4.5.3"
+		"socket.io": "^4.5.3",
+		"svelte-particles": "^2.5.3",
+		"tsparticles": "^2.5.3"
 	}
 }

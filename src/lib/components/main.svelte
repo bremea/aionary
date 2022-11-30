@@ -15,6 +15,7 @@
 	let error: string | undefined = undefined;
 	const id = $page.params.game;
 
+	export let isHoliday = false;
 	let show = true;
 	export { show };
 
@@ -42,8 +43,8 @@
 	};
 
 	export const setImg = (img: string, prc: number) => {
-		const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-		const ctx = canvas.getContext('2d')!;
+		const c = document.getElementById('canvas') as HTMLCanvasElement;
+		const ctx = c.getContext('2d')!;
 		const image = new Image();
 		image.onload = function () {
 			ctx.drawImage(image, 0, 0, 256, 256);
@@ -53,6 +54,10 @@
 	};
 
 	onMount(() => {
+		const name = window.localStorage.getItem('name');
+		if (name) {
+			(document.getElementById('nameval') as HTMLInputElement).value = name;
+		}
 		setInterval(() => {
 			lX++;
 			if (lX === loading.length) lX = 0;
@@ -94,7 +99,7 @@
 			</p>
 		{/if}
 		<img
-			src="/svg/robot.svg"
+			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
 			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
@@ -108,7 +113,7 @@
 		<Logo />
 		<p class="text-center">Next round will start soon...</p>
 		<img
-			src="/svg/think.svg"
+			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
 			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
@@ -119,14 +124,10 @@
 			show ? 'flex' : 'hidden'
 		}`}
 	>
-		<canvas
-			height={innerWidth < 640 ? 170 : 256}
-			width={innerWidth < 640 ? 170 : 256}
-			id="canvas"
-		/>
+		<canvas id="canvas" class="bg-black rounded border" width="256" height="256" />
 		<p class="text-center">Drawing the picture... {percent}%</p>
 		<img
-			src="/svg/paint.svg"
+			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
 			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
@@ -153,7 +154,7 @@
 			<p class="text-xs mt-3 text-center">You finished #{placement} (+{finalPts} pts)</p>
 		{/if}
 		<img
-			src="/svg/celebrate.svg"
+			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
 			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>

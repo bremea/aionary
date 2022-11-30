@@ -17,9 +17,16 @@
 	min-width: 20%;
 }
 
-body, .mbg {
-	background-color: #dc2626;
+.snow > * {
+	z-index: -50;
+}
+
+.mbg {
 	background-image: url('/bg.svg');
+}
+
+body {
+	@apply bg-primary;
 }
 
 .ssh {

@@ -4,7 +4,7 @@
 	import Sys from './chat/sys.svelte';
 
 	let chatBox: HTMLDivElement;
-	let messages: Array<{ content: string; player?: string }> = [];
+	let messages: Array<{ content: string; player: string | undefined }> = [];
 	let show = true;
 
 	export const addMessage = (content: string, player?: string) => {

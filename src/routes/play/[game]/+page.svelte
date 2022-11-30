@@ -8,6 +8,7 @@
 	import Ad from '$lib/components/home/ad.svelte';
 	import Mobtab from '$lib/components/mobtab.svelte';
 	import { onMount } from 'svelte';
+	import Snow from '$lib/components/snow.svelte';
 
 	const id = $page.params.game;
 
@@ -22,23 +23,25 @@
 		console.error('WS not init yet');
 	};
 
+	let isHoliday = $page.url.searchParams.has('holiday');
+
 	let chatShow = false;
 	let lbShow = false;
 
 	const join = (nmva: string) => {
-		main.connStatus('Connecting to server');
+		main.connStatus!('Connecting to server');
 		if (nmva == '' || !nmva) nmva = 'Guest';
 		window.localStorage.setItem('name', nmva);
 
 		const g = new WebSocket(`wss://ws.aionary.com/${id}`);
 		g.onopen = () => {
 			console.log('Connected to game instance ' + id);
-			main.connStatus('Joining game');
+			main.connStatus!('Joining game');
 			g.send(JSON.stringify({ action: 'join', name: nmva }));
 		};
 
 		g.onerror = () => {
-			main.connStatus('Error', 'Something went wrong, try again.');
+			main.connStatus!('Error', 'Something went wrong, try again.');
 		};
 
 		guess = () => {
@@ -71,17 +74,17 @@
 					break;
 				}
 				case 'addPlayer': {
-					chat.addMessage(`${msg.name} joined the game!`);
-					round.setInfo(currentRound, msg.players);
+					chat.addMessage!(`${msg.name} joined the game!`);
+					round.setInfo!(currentRound, msg.players);
 					break;
 				}
 				case 'removePlayer': {
-					chat.addMessage(`${msg.name} left the game!`);
-					round.setInfo(currentRound, msg.players);
+					chat.addMessage!(`${msg.name} left the game!`);
+					round.setInfo!(currentRound, msg.players);
 					break;
 				}
 				case 'gameState': {
-					main.setState(msg.state);
+					main.setState!(msg.state);
 					currentRound = msg.round;
 					if (msg.state == 2) {
 						(document.getElementById('chval') as HTMLInputElement).placeholder = 'Your guess...';
@@ -91,17 +94,17 @@
 						(document.getElementById('chbtn') as HTMLButtonElement).disabled = false;
 						document.getElementById('chbtn')!.innerHTML = 'Send';
 					}
-					round.setInfo(currentRound, 1);
+					round.setInfo!(currentRound, 1);
 					break;
 				}
 				case 'word': {
-					round.setWord(msg.word);
+					round.setWord!(msg.word);
 					break;
 				}
 				case 'winners': {
 					const uuid = window.localStorage.getItem('uuid');
 					const placement = msg.winnersUUID.indexOf(uuid);
-					main.setWinners(msg.winners, placement);
+					main.setWinners!(msg.winners, placement);
 					break;
 				}
 				case 'leaderboard': {
@@ -110,18 +113,24 @@
 						(a, b) => msg.leaderboard[a].pos - msg.leaderboard[b].pos
 					);
 					const mpos = lba.indexOf(uuid);
-					lb.setLb(msg.leaderboard, lba);
-					round.setInfo(currentRound, lba.length);
+					lb.setLb!(msg.leaderboard, lba, mpos);
+					round.setInfo!(currentRound, lba.length);
 					break;
 				}
 				case 'img': {
-					main.setImg(msg.img, msg.prc);
+					main.setImg!(msg.img, msg.prc);
 					break;
 				}
 				case 'chat': {
-					chat.addMessage(msg.msg, msg.name);
+					chat.addMessage!(msg.msg, msg.name);
 					if (msg.guessed) {
 						(document.getElementById('chbtn') as HTMLButtonElement).disabled = true;
+					}
+					break;
+				}
+				case 'confirmConnection': {
+					if (msg.holiday) {
+						isHoliday = msg.holiday;
 					}
 					break;
 				}
@@ -162,7 +171,7 @@
 </script>
 
 <svelte:window bind:innerWidth />
-<div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6">
+<div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6 [&>*]:z-10">
 	<div class="lg:w-1/5 flex-col lg:h-full flex">
 		<Homelink />
 		{#if innerWidth >= 1024}
@@ -171,14 +180,14 @@
 	</div>
 
 	<div class="lg:flex-grow flex flex-col lg:h-full lg:mx-6">
-		<Round bind:this={round} />
+		<Round bind:this={round} {isHoliday} />
 		<Mobtab switb={swtab} />
 		{#if innerWidth < 1024}
 			<div class="flex-col flex">
 				<Leaderboard bind:this={lb} show={lbShow} />
 			</div>
 		{/if}
-		<Main bind:this={main} {join} show={!((chatShow || lbShow) && innerWidth < 1024)} />
+		<Main {isHoliday} bind:this={main} {join} show={!((chatShow || lbShow) && innerWidth < 1024)} />
 		{#if innerWidth >= 1024}
 			<Ad />
 		{/if}
@@ -206,3 +215,6 @@
 		</div>
 	</div>
 </div>
+{#if isHoliday}
+	<Snow />
+{/if}

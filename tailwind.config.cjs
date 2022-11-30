@@ -2,6 +2,7 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	safelist: [
+		'bg-light-blue-500',
 		{
 			pattern: /text-.+/,
 			variants: ['lg', 'md', 'sm']

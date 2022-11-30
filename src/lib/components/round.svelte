@@ -8,6 +8,8 @@
 	let loading = ['|', '/', '—', '\\'];
 	let lX = 0;
 
+	export let isHoliday = false;
+
 	export const setInfo = (r: number, tp: number) => {
 		round = r;
 		totalPlaying = tp;
@@ -47,5 +49,7 @@
 			{/if}
 		{/each}
 	</div>
-	<p class="text-xs text-center">Round {round} - {totalPlaying} playing</p>
+	<p class="text-xs text-center">
+		Round {round} - {totalPlaying} playing - {isHoliday ? 'Holiday' : 'Classic'} mode
+	</p>
 </div>
