@@ -25,7 +25,7 @@
 </script>
 
 <div class="flex w-full h-screen items-center justify-center">
-	<div class="mbox flex flex-col justify-center items-center m-6 mb-0">
+	<div class="mbox h-fit flex flex-col justify-center items-center m-3 xs:m-6 mb-0">
 		<Logo />
 		{#if error}
 			<p class="mt-3"><span class="text-primary">Error!</span> {error}</p>

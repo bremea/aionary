@@ -3,20 +3,26 @@
 	import Main from '$lib/components/main.svelte';
 	import Chat from '$lib/components/chat.svelte';
 	import Round from '$lib/components/round.svelte';
-	import Stats from '$lib/components/stats.svelte';
+	import Homelink from '$lib/components/homelink.svelte';
 	import Leaderboard from '$lib/components/leaderboard.svelte';
+	import Ad from '$lib/components/home/ad.svelte';
+	import Mobtab from '$lib/components/mobtab.svelte';
+	import { onMount } from 'svelte';
 
 	const id = $page.params.game;
 
 	let chat: Chat;
+	let innerWidth = 0;
 	let main: Main;
 	let round: Round;
-	let stats: Stats;
 	let lb: Leaderboard;
 	let currentRound: number = 0;
 	let guess = () => {
 		console.error('WS not init yet');
 	};
+
+	let chatShow = false;
+	let lbShow = false;
 
 	const join = (nmva: string) => {
 		main.connStatus('Connecting to server');
@@ -102,7 +108,6 @@
 						(a, b) => msg.leaderboard[a].pos - msg.leaderboard[b].pos
 					);
 					const mpos = lba.indexOf(uuid);
-					stats.updateLb(mpos, msg.leaderboard, uuid);
 					lb.setLb(msg.leaderboard, lba);
 					break;
 				}
@@ -114,46 +119,70 @@
 					chat.addMessage(msg.msg, msg.name);
 					if (msg.guessed) {
 						(document.getElementById('chbtn') as HTMLButtonElement).disabled = true;
-						stats.updatePts(msg.pts);
 					}
 					break;
 				}
 			}
 		};
 	};
+
+	onMount(() => {
+		chatShow = innerWidth >= 1024;
+		lbShow = innerWidth >= 1024;
+	});
+
+	const swtab = (to: number) => {
+		const elems = document.querySelectorAll('.btna');
+		for (const el of elems) {
+			el.classList.remove('btna');
+		}
+		document.getElementById(`btn${to}`)?.classList.add('btna');
+
+		switch (to) {
+			case 0: {
+				chatShow = false;
+				lbShow = false;
+				break;
+			}
+			case 1: {
+				chatShow = true;
+				lbShow = false;
+				break;
+			}
+			case 2: {
+				chatShow = false;
+				lbShow = true;
+				break;
+			}
+		}
+	};
 </script>
 
-<div class="flex w-full h-screen p-6">
-	<div class="w-1/5 flex flex-col h-full">
-		<Stats bind:this={stats} />
-		<Leaderboard bind:this={lb} />
+<svelte:window bind:innerWidth />
+<div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6">
+	<div class="lg:w-1/5 flex-col lg:h-full flex">
+		<Homelink />
+		{#if innerWidth >= 1024}
+			<Leaderboard bind:this={lb} show={true} />
+		{/if}
 	</div>
-	<div class="flex-grow flex flex-col h-full mx-6">
+
+	<div class="lg:flex-grow flex flex-col lg:h-full lg:mx-6">
 		<Round bind:this={round} />
-		<Main bind:this={main} {join} />
-		<div class="h-32 mt-6 mbox flex flex-col justify-center items-center">
-			<script
-				async
-				src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5296928207981957"
-				crossorigin="anonymous"
-			></script>
-			<!-- hznt -->
-			<ins
-				class="adsbygoogle"
-				style="display:block"
-				data-ad-client="ca-pub-5296928207981957"
-				data-ad-slot="3595922703"
-				data-ad-format="auto"
-				data-full-width-responsive="true"
-			/>
-			<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
+		<Mobtab switb={swtab} />
+		{#if innerWidth < 1024}
+			<div class="flex-col flex">
+				<Leaderboard bind:this={lb} show={lbShow} />
+			</div>
+		{/if}
+		<Main bind:this={main} {join} show={!((chatShow || lbShow) && innerWidth < 1024)} />
+		{#if innerWidth >= 1024}
+			<Ad />
+		{/if}
 	</div>
-	<div class="w-1/5 flex flex-col h-full">
-		<Chat bind:this={chat} />
-		<div class="h-32 mt-6 mbox flex flex-col justify-center items-center">
+	<div class="lg:w-1/5 flex-col h-full flex">
+		<Chat bind:this={chat} show={chatShow} />
+		<div class="lg:h-32 !py-3 lg:!py-6 mt-6 mbox flex lg:flex-col justify-center items-center">
 			<input
 				type="text"
 				class="rounded border border-black px-3 flex-grow text-center w-full"
@@ -167,7 +196,7 @@
 				href={''}
 				on:click={guess}
 				id="chbtn"
-				class="rounded border border-black px-3 mt-2 w-full text-center transition hover:bg-primary active:scale-95"
+				class="rounded border border-black px-3 ml-2 lg:ml-0 lg:mt-2 lg:w-full text-center transition hover:bg-primary active:scale-95"
 				>Guess</button
 			>
 		</div>

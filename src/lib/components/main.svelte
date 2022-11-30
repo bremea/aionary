@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 
 	let mainState = 0;
+    let innerWidth = 0;
 	let percent = 0;
 	let winners: string[] = [];
 	let placement = 0;
@@ -13,6 +14,9 @@
 	let status = '';
 	let error: string | undefined = undefined;
 	const id = $page.params.game;
+
+	let show = true;
+	export {show};
 
 	const rJ = () => {
 		join((document.getElementById('nameval') as HTMLInputElement).value);
@@ -56,17 +60,18 @@
 	});
 </script>
 
+<svelte:window bind:innerWidth />
 {#if mainState === 0}
 	<div
-		class="relative !overflow-hidden mt-6 flex-grow mbox flex flex-col justify-center items-center"
+		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
 	>
 		<Logo />
 		{#if error}
-			<p class="mt-3"><span class="text-primary">Error!</span> {error}</p>
+			<p class="mt-3 text-center"><span class="text-primary">Error!</span> {error}</p>
 		{:else if status != ''}
-			<p class="mt-3">{status} <span class="text-primary">({loading[lX]})</span></p>
+			<p class="mt-3 text-center">{status} <span class="text-primary">({loading[lX]})</span></p>
 		{:else}
-			<p class="my-3">Enter your name below</p>
+			<p class="my-3 text-center">Enter your name below</p>
 			<div class="flex flex-col justify-center items-center">
 				<input
 					type="text"
@@ -82,40 +87,41 @@
 					>Play</button
 				>
 			</div>
-			<p class="text-xs mt-3">Joining {id}</p>
+			<p class="text-xs mt-3 text-center">Joining {id}</p>
 		{/if}
+		<img
+			src="/svg/robot.svg"
+			alt="robot"
+			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+		/>
 	</div>
 {:else if mainState === 1}
 	<div
-		class="relative !overflow-hidden mt-6 flex-grow mbox flex flex-col justify-center items-center"
+	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
 	>
 		<Logo />
-		<p>Next round will start soon...</p>
+		<p class="text-center">Next round will start soon...</p>
 		<img
 			src="/svg/think.svg"
-			height={100}
-			width={100}
 			alt="robot"
-			class="robot absolute bottom-0 left-0"
+			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {:else if mainState === 2}
 	<div
-		class="relative !overflow-hidden mt-6 flex-grow mbox flex flex-col justify-center items-center"
+	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
 	>
-		<canvas height={256} width={256} id="canvas" />
-		<p>Drawing the picture... {percent}%</p>
+		<canvas height={innerWidth < 640 ? 170 : 256} width={innerWidth < 640 ? 170 : 256} id="canvas" />
+		<p class="text-center">Drawing the picture... {percent}%</p>
 		<img
 			src="/svg/paint.svg"
-			height={100}
-			width={100}
 			alt="robot"
-			class="robot absolute bottom-0 left-0"
+			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {:else if mainState === 3}
 	<div
-		class="relative !overflow-hidden mt-6 flex-grow mbox flex flex-col justify-center items-center"
+	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
 	>
 		<p class="text-xs mb-3">Round Results</p>
 		{#if winners.length > 0}
@@ -128,16 +134,14 @@
 			<p>No one guessed the word!</p>
 		{/if}
 		{#if placement == -1}
-			<p class="text-xs mt-3">You didn't guess the word</p>
+			<p class="text-xs mt-3 text-center">You didn't guess the word</p>
 		{:else}
-			<p class="text-xs mt-3">You finished #{placement} (+{finalPts} pts)</p>
+			<p class="text-xs mt-3 text-center">You finished #{placement} (+{finalPts} pts)</p>
 		{/if}
 		<img
 			src="/svg/celebrate.svg"
-			height={100}
-			width={100}
 			alt="robot"
-			class="robot absolute bottom-0 left-0"
+			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {/if}

@@ -31,8 +31,8 @@
 	});
 </script>
 
-<div class="h-32 mbox flex flex-col justify-center items-center">
-	<div class="flex items-center">
+<div class="h-fit !py-3 lg:!py-6 lg:h-32 mbox flex flex-col justify-center items-center">
+	<div class="font-bold text-xs md:text-base flex items-center text-center">
 		{#each word.split('') as letter}
 			{#if letter === '_'}
 				<p class="px-1">&nbsp;</p>
@@ -47,5 +47,5 @@
 			{/if}
 		{/each}
 	</div>
-	<p class="text-xs">Round {round} - {totalPlaying} playing - aionary.com</p>
+	<p class="text-xs text-center">Round {round} - {totalPlaying} playing</p>
 </div>

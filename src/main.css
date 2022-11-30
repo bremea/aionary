@@ -39,6 +39,10 @@ body, .mbg {
 	box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
+.btna {
+	@apply bg-primary;
+}
+
 .striped p:nth-child(even) {
 	@apply bg-gray-200;
 }
