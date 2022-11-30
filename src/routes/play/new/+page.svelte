@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Logo from '$lib/components/logo.svelte';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import Link from '$lib/components/link.svelte';
 
@@ -66,7 +65,7 @@
 			<p class="my-3"><span class="text-primary">Error!</span> {error}</p>
 		{/if}
 		<form on:submit|preventDefault={newgame} class="mt-3">
-			<select class="py-1 px-3 text-xs border border-black rounded" value={selected}>
+			<select class="py-1 px-3 text-xs border border-black rounded" bind:value={selected}>
 				{#each Object.keys(regions) as reg}
 					<option value={reg}>{regions[reg]}</option>
 				{/each}

@@ -13,7 +13,7 @@
 
 	let chat: Chat;
 	let innerWidth = 0;
-	let chatmsg: string;
+	let chatmsg: string = '';
 	let main: Main;
 	let round: Round;
 	let lb: Leaderboard;
@@ -43,11 +43,12 @@
 
 		guess = () => {
 			const token = window.localStorage.getItem('token');
+			console.log(chatmsg);
 			g.send(
 				JSON.stringify({
 					action: 'chat',
 					token: token,
-					msg: chatmsg
+					msg: chatmsg || ''
 				})
 			);
 			chatmsg = '';
