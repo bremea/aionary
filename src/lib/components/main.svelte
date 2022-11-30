@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 
 	let mainState = 0;
-    let innerWidth = 0;
+	let innerWidth = 0;
 	let percent = 0;
 	let winners: string[] = [];
 	let placement = 0;
@@ -16,7 +16,7 @@
 	const id = $page.params.game;
 
 	let show = true;
-	export {show};
+	export { show };
 
 	const rJ = () => {
 		join((document.getElementById('nameval') as HTMLInputElement).value);
@@ -63,7 +63,9 @@
 <svelte:window bind:innerWidth />
 {#if mainState === 0}
 	<div
-		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
+		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${
+			show ? 'flex' : 'hidden'
+		}`}
 	>
 		<Logo />
 		{#if error}
@@ -87,7 +89,9 @@
 					>Play</button
 				>
 			</div>
-			<p class="text-xs mt-3 text-center">Joining {id}</p>
+			<p class="text-xs mt-3 text-center">
+				Game invite: <code>aionary.com/play/{id}</code>
+			</p>
 		{/if}
 		<img
 			src="/svg/robot.svg"
@@ -97,7 +101,9 @@
 	</div>
 {:else if mainState === 1}
 	<div
-	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
+		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${
+			show ? 'flex' : 'hidden'
+		}`}
 	>
 		<Logo />
 		<p class="text-center">Next round will start soon...</p>
@@ -109,9 +115,15 @@
 	</div>
 {:else if mainState === 2}
 	<div
-	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
+		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${
+			show ? 'flex' : 'hidden'
+		}`}
 	>
-		<canvas height={innerWidth < 640 ? 170 : 256} width={innerWidth < 640 ? 170 : 256} id="canvas" />
+		<canvas
+			height={innerWidth < 640 ? 170 : 256}
+			width={innerWidth < 640 ? 170 : 256}
+			id="canvas"
+		/>
 		<p class="text-center">Drawing the picture... {percent}%</p>
 		<img
 			src="/svg/paint.svg"
@@ -121,7 +133,9 @@
 	</div>
 {:else if mainState === 3}
 	<div
-	class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${show ? 'flex' : 'hidden'}`}
+		class={`relative !overflow-hidden mt-6 h-fit lg:flex-grow mbox flex-col justify-center items-center ${
+			show ? 'flex' : 'hidden'
+		}`}
 	>
 		<p class="text-xs mb-3">Round Results</p>
 		{#if winners.length > 0}

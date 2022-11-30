@@ -109,6 +109,7 @@
 					);
 					const mpos = lba.indexOf(uuid);
 					lb.setLb(msg.leaderboard, lba);
+					round.setInfo(currentRound, lba.length);
 					break;
 				}
 				case 'img': {
