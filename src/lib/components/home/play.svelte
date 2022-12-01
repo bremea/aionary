@@ -35,7 +35,7 @@
 			</div></a
 		>
 		<a
-			href="/play"
+			href="/play/new"
 			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-primary mbtn active:scale-95"
 		>
 			<img src="/svg/lock.svg" alt="robot" class="robot" height={64} width={64} />

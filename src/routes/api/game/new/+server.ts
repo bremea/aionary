@@ -15,7 +15,8 @@ export async function POST({ request }: RequestEvent) {
 			config: {
 				image: 'registry.fly.io/aionary-gamews:latest',
 				env: {
-					'PUBLIC_GAME': 'false'
+					'PUBLIC_GAME': 'false',
+					'SPECIAL': (bdata['gamemode'] == 'special' ? 'true' : 'false')
 				},
 				services: [
 					{
