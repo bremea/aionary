@@ -41,7 +41,7 @@
 		};
 
 		g.onerror = () => {
-			main.connStatus!('Error', 'Something went wrong, try again.');
+			main.connStatus!('', 'Something went wrong, try again.');
 		};
 
 		guess = () => {
@@ -98,7 +98,7 @@
 					break;
 				}
 				case 'word': {
-					round.setWord!(msg.word);
+					main.setWord!(msg.word);
 					break;
 				}
 				case 'winners': {
@@ -129,8 +129,8 @@
 					break;
 				}
 				case 'confirmConnection': {
-					if (msg.holiday) {
-						isHoliday = msg.holiday;
+					if (msg.special) {
+						isHoliday = msg.special;
 					}
 					break;
 				}

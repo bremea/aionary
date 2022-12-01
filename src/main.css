@@ -21,6 +21,15 @@
 	z-index: -50;
 }
 
+.pshadow {
+	box-shadow: 0 0 10px #dc2625, inset 0 0 10px #dc2625;
+}
+
+.dualbg:hover {
+	background-color: #dcdcdc;
+	background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+
 .mbg {
 	background-image: url('/bg.svg');
 }
@@ -69,3 +78,18 @@ body {
 		transform: rotate(15deg);
 	}
 }
+/*
+.swoop-in {
+	transform: translateX(100vw);
+	animation: sin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes sin {
+	from {
+		transform: translateX(100vw);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+*/

@@ -9,6 +9,8 @@
 	let winners: string[] = [];
 	let placement = 0;
 	let finalPts = 0;
+	let word: string = '';
+	let isLoad: boolean = true;
 	let loading = ['|', '/', '—', '\\'];
 	let lX = 0;
 	let status = '';
@@ -18,6 +20,15 @@
 	export let isHoliday = false;
 	let show = true;
 	export { show };
+
+	export const setWord = (w: string) => {
+		if (w == '') {
+			isLoad = true;
+		} else {
+			isLoad = false;
+			word = w;
+		}
+	};
 
 	const rJ = () => {
 		join((document.getElementById('nameval') as HTMLInputElement).value);
@@ -61,6 +72,7 @@
 		setInterval(() => {
 			lX++;
 			if (lX === loading.length) lX = 0;
+			if (isLoad) word = `(${loading[lX]})`;
 		}, 100);
 	});
 </script>
@@ -72,32 +84,35 @@
 			show ? 'flex' : 'hidden'
 		}`}
 	>
-		<Logo />
-		{#if error}
-			<p class="mt-3 text-center"><span class="text-primary">Error!</span> {error}</p>
-		{:else if status != ''}
-			<p class="mt-3 text-center">{status} <span class="text-primary">({loading[lX]})</span></p>
-		{:else}
-			<p class="my-3 text-center">Enter your name below</p>
-			<div class="flex flex-col justify-center items-center">
-				<input
-					type="text"
-					class="rounded border border-black px-3 flex-grow text-center w-full"
-					placeholder="Your name..."
-					id="nameval"
-				/>
-				<button
-					href={''}
-					on:click={rJ}
-					id="namebtn"
-					class="rounded border border-black px-3 mt-2 w-full text-center transition hover:bg-primary active:scale-95"
-					>Play</button
-				>
-			</div>
-			<p class="text-xs mt-3 text-center">
-				Game invite: <code>aionary.com/play/{id}</code>
-			</p>
-		{/if}
+		<div class="swoop-in">
+			<Logo />
+			{#if error}
+				<p class="mt-3 text-center font-bold"><span class="text-primary">Error!</span> {error}</p>
+			{/if}
+			{#if status != ''}
+				<p class="mt-3 text-center">{status} <span class="text-primary">({loading[lX]})</span></p>
+			{:else}
+				<p class="my-3 text-center">Enter your name below</p>
+				<div class="flex flex-col justify-center items-center">
+					<input
+						type="text"
+						class="rounded border border-black px-3 flex-grow text-center w-full"
+						placeholder="Your name..."
+						id="nameval"
+					/>
+					<button
+						href={''}
+						on:click={rJ}
+						id="namebtn"
+						class="rounded border border-black px-3 mt-2 w-full text-center transition hover:bg-primary active:scale-95"
+						>Play</button
+					>
+				</div>
+				<p class="text-xs mt-3 text-center">
+					Invite: <code>https://aionary.com/play/{id}</code>
+				</p>
+			{/if}
+		</div>
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
@@ -110,8 +125,9 @@
 			show ? 'flex' : 'hidden'
 		}`}
 	>
-		<Logo />
-		<p class="text-center">Next round will start soon...</p>
+		<div class="swoop-in">
+			<p class="text-center font-bold">Round 0</p>
+		</div>
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
@@ -124,8 +140,25 @@
 			show ? 'flex' : 'hidden'
 		}`}
 	>
-		<canvas id="canvas" class="bg-black rounded border" width="256" height="256" />
-		<p class="text-center">Drawing the picture... {percent}%</p>
+		<div class="swoop-in flex flex-col items-center">
+			<div class="font-bold text-xs md:text-base flex justify-center items-center text-center mb-3">
+				{#each word.split('') as letter}
+					{#if letter === '_'}
+						<p class="px-1">&nbsp;</p>
+					{:else}
+						<p class={`${isLoad ? 'text-primary' : 'underline'} px-1`}>
+							{#if letter === ' '}
+								&nbsp;
+							{:else}
+								{letter}
+							{/if}
+						</p>
+					{/if}
+				{/each}
+			</div>
+			<canvas id="canvas" class="bg-black rounded border" width="256" height="256" />
+			<p class="text-center text-xs mt-3">Drawing the picture... {percent}%</p>
+		</div>
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
@@ -138,21 +171,23 @@
 			show ? 'flex' : 'hidden'
 		}`}
 	>
-		<p class="text-xs mb-3">Round Results</p>
-		{#if winners.length > 0}
-			{#if winners[0]}<p>1: <span class="font-bold">{winners[0]}</span> (+5 pts)</p>{/if}
-			{#if winners[1]}<p>2: <span class="font-bold">{winners[1]}</span> (+4 pts)</p>{/if}
-			{#if winners[2]}<p>3: <span class="font-bold">{winners[2]}</span> (+3 pts)</p>{/if}
-			{#if winners[3]}<p>4: <span class="font-bold">{winners[3]}</span> (+2 pts)</p>{/if}
-			{#if winners[4]}<p>5: <span class="font-bold">{winners[4]}</span> (+1 pt)</p>{/if}
-		{:else}
-			<p>No one guessed the word!</p>
-		{/if}
-		{#if placement == -1}
-			<p class="text-xs mt-3 text-center">You didn't guess the word</p>
-		{:else}
-			<p class="text-xs mt-3 text-center">You finished #{placement} (+{finalPts} pts)</p>
-		{/if}
+		<div class="swoop-in">
+			<p class="text-xs mb-3 text-center">Round Results</p>
+			{#if winners.length > 0}
+				{#if winners[0]}<p>1: <span class="font-bold">{winners[0]}</span> (+5 pts)</p>{/if}
+				{#if winners[1]}<p>2: <span class="font-bold">{winners[1]}</span> (+4 pts)</p>{/if}
+				{#if winners[2]}<p>3: <span class="font-bold">{winners[2]}</span> (+3 pts)</p>{/if}
+				{#if winners[3]}<p>4: <span class="font-bold">{winners[3]}</span> (+2 pts)</p>{/if}
+				{#if winners[4]}<p>5: <span class="font-bold">{winners[4]}</span> (+1 pt)</p>{/if}
+			{:else}
+				<p>No one guessed the word!</p>
+			{/if}
+			{#if placement == -1}
+				<p class="text-xs mt-3 text-center">You didn't guess the word</p>
+			{:else}
+				<p class="text-xs mt-3 text-center">You finished #{placement} (+{finalPts} pts)</p>
+			{/if}
+		</div>
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"

@@ -18,7 +18,7 @@
 			if (lX === loading.length) lX = 0;
 		}, 100);
 
-		const rre = await fetch(`https://ws.aionary.com/pub${isHoliday ? '?holiday' : ''}`);
+		const rre = await fetch(`https://ws.aionary.com/pub${isHoliday ? '?special' : ''}`);
 		const res = await rre.text();
 		if (/[0-9A-Fa-f]{6}/g.test(res)) {
 			goto(`/play/${res}${isHoliday ? '?holiday' : ''}`);

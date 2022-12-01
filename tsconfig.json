@@ -6,6 +6,7 @@
 		"exactOptionalPropertyTypes": true,
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
+		"allowSyntheticDefaultImports": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noFallthroughCasesInSwitch": true,
