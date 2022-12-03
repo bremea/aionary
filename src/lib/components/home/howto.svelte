@@ -1,4 +1,4 @@
-<div class="mw mb-6 lg:mb-0 lg:w-1/5 mbox flex flex-col">
+<div class="mw mb-6 lg:mb-0 lg:w-1/5 mbox flex flex-col items-center">
 	<div>
 		<p>How to play</p>
 		<p class="text-xs">
@@ -7,13 +7,5 @@
 			points allows you to move up the leaderboard.
 		</p>
 	</div>
-	<video
-		src="/tutorial.webm"
-		autoplay={true}
-		class="mt-3 self-center"
-		width={200}
-		height={200}
-	>
-		<track kind="captions" />
-	</video>
+	<img src="/svg/tutorial.webp" alt="how to play" height={200} width={200} />
 </div>

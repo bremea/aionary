@@ -6,7 +6,6 @@
 	import Homelink from '$lib/components/homelink.svelte';
 	import Leaderboard from '$lib/components/leaderboard.svelte';
 	import Ad from '$lib/components/home/ad.svelte';
-	import Mobtab from '$lib/components/mobtab.svelte';
 	import { onMount } from 'svelte';
 	import Snow from '$lib/components/snow.svelte';
 
@@ -14,7 +13,7 @@
 
 	let chat: Chat;
 	let innerWidth = 0;
-	let chatmsg: string = '';
+	let chatmsg: HTMLInputElement;
 	let main: Main;
 	let round: Round;
 	let lb: Leaderboard;
@@ -22,6 +21,13 @@
 	let guess = () => {
 		console.error('WS not init yet');
 	};
+	let report = async (): Promise<boolean> => {
+		return false;
+	};
+	let start = false;
+	let roundStartSound: HTMLAudioElement;
+	let correctSound: HTMLAudioElement;
+	let roundEndSound: HTMLAudioElement;
 
 	let isHoliday = $page.url.searchParams.has('holiday');
 
@@ -46,15 +52,22 @@
 
 		guess = () => {
 			const token = window.localStorage.getItem('token');
-			console.log(chatmsg);
+			chatmsg.focus();
 			g.send(
 				JSON.stringify({
 					action: 'chat',
 					token: token,
-					msg: chatmsg || ''
+					msg: chatmsg.value || ''
 				})
 			);
-			chatmsg = '';
+			chatmsg.value = '';
+		};
+
+		report = async (): Promise<boolean> => {
+			const ye = confirm('Report this image as inappropriate?');
+			if (!ye) return false;
+			g.send(JSON.stringify({ action: 'flag' }));
+			return true;
 		};
 
 		g.onmessage = (data) => {
@@ -65,6 +78,7 @@
 						g.send(JSON.stringify({ action: 'join', name: nmva }));
 					} else {
 						console.error('Socket error: ' + msg.msg);
+						main.connStatus!('', msg.msg);
 					}
 					break;
 				}
@@ -84,8 +98,14 @@
 					break;
 				}
 				case 'gameState': {
-					main.setState!(msg.state);
+					main.setState!(msg.state, msg.round);
+					chatmsg.focus();
 					currentRound = msg.round;
+					if (msg.state == 1) {
+						roundStartSound.play();
+					} else if (msg.state == 3) {
+						roundEndSound.play();
+					}
 					if (msg.state == 2) {
 						(document.getElementById('chval') as HTMLInputElement).placeholder = 'Your guess...';
 						document.getElementById('chbtn')!.innerHTML = 'Guess';
@@ -98,7 +118,7 @@
 					break;
 				}
 				case 'word': {
-					main.setWord!(msg.word);
+					main.setWord!(msg.word, false);
 					break;
 				}
 				case 'winners': {
@@ -123,12 +143,17 @@
 				}
 				case 'chat': {
 					chat.addMessage!(msg.msg, msg.name);
+					round.pingChat!();
 					if (msg.guessed) {
+						main.setWord!(msg.word, true);
+						correctSound.play();
 						(document.getElementById('chbtn') as HTMLButtonElement).disabled = true;
 					}
 					break;
 				}
 				case 'confirmConnection': {
+					start = true;
+					roundStartSound.play();
 					if (msg.special) {
 						isHoliday = msg.special;
 					}
@@ -173,48 +198,61 @@
 <svelte:window bind:innerWidth />
 <div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6 [&>*]:z-10">
 	<div class="lg:w-1/5 flex-col lg:h-full flex">
-		<Homelink />
 		{#if innerWidth >= 1024}
+			<Homelink />
 			<Leaderboard bind:this={lb} show={true} />
 		{/if}
 	</div>
 
 	<div class="lg:flex-grow flex flex-col lg:h-full lg:mx-6">
-		<Round bind:this={round} {isHoliday} />
-		<Mobtab switb={swtab} />
+		<Round bind:this={round} {isHoliday} switb={swtab} />
 		{#if innerWidth < 1024}
 			<div class="flex-col flex">
 				<Leaderboard bind:this={lb} show={lbShow} />
 			</div>
 		{/if}
-		<Main {isHoliday} bind:this={main} {join} show={!((chatShow || lbShow) && innerWidth < 1024)} />
+		<Main
+			{isHoliday}
+			{report}
+			bind:this={main}
+			{join}
+			show={!((chatShow || lbShow) && innerWidth < 1024)}
+		/>
 		{#if innerWidth >= 1024}
 			<Ad />
 		{/if}
 	</div>
 	<div class="lg:w-1/5 flex-col h-full flex">
 		<Chat bind:this={chat} show={chatShow} />
-		<div class="lg:h-32 !py-3 lg:!py-6 mt-6 mbox flex lg:flex-col justify-center items-center">
-			<input
-				type="text"
-				class="rounded border border-black px-3 flex-grow text-center w-full"
-				placeholder="Your guess..."
-				bind:value={chatmsg}
-				autocomplete="off"
-				on:keyup={(k) => {
-					if (k.code == 'Enter') guess();
-				}}
-				id="chval"
-			/>
-			<button
-				on:click={guess}
-				id="chbtn"
-				class="rounded border border-black px-3 ml-2 lg:ml-0 lg:mt-2 lg:w-full text-center transition hover:bg-primary active:scale-95"
-				>Guess</button
+		{#if start}
+			<div
+				class="lg:h-32 !py-3 lg:!py-6 mt-4 lg:mt-6 mbox flex lg:flex-col justify-center items-center"
 			>
-		</div>
+				<input
+					type="text"
+					class="rounded border border-black px-3 flex-grow text-center w-full"
+					placeholder="Your guess..."
+					bind:this={chatmsg}
+					autocomplete="off"
+					on:keyup={(k) => {
+						if (k.code == 'Enter') guess();
+					}}
+					id="chval"
+				/>
+				<button
+					on:click={guess}
+					id="chbtn"
+					class="rounded border border-black px-3 ml-2 lg:ml-0 lg:mt-2 lg:w-full text-center transition hover:bg-primary active:scale-95"
+					>Guess</button
+				>
+			</div>
+		{/if}
 	</div>
 </div>
 {#if isHoliday}
 	<Snow />
 {/if}
+
+<audio src="/audio/roundstart.mp3" bind:this={roundStartSound} />
+<audio src="/audio/correct.mp3" bind:this={correctSound} />
+<audio src="/audio/roundend.mp3" bind:this={roundEndSound} />

@@ -78,18 +78,17 @@ body {
 		transform: rotate(15deg);
 	}
 }
-/*
+
 .swoop-in {
-	transform: translateX(100vw);
+	transform: translateX(100%);
 	animation: sin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes sin {
 	from {
-		transform: translateX(100vw);
+		transform: translateX(100%);
 	}
 	to {
 		transform: translateX(0);
 	}
 }
-*/
