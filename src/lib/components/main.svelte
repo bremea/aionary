@@ -116,7 +116,7 @@
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
-			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+			class="robot absolute bottom-4 left-4 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {:else if mainState === 1}
@@ -131,7 +131,7 @@
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
-			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+			class="robot absolute bottom-4 left-4 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {:else if mainState === 2}
@@ -157,12 +157,12 @@
 				{/each}
 			</div>
 			<canvas id="canvas" class="bg-black rounded border" width="256" height="256" />
-			<p class="text-center text-xs mt-3">Drawing the picture... {percent}%</p>
+			<p class="text-center text-xs mt-3">Drawing... {percent}</p>
 		</div>
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
-			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+			class="robot absolute bottom-4 left-4 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {:else if mainState === 3}
@@ -191,7 +191,7 @@
 		<img
 			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
 			alt="robot"
-			class="robot absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+			class="robot absolute bottom-4 left-4 h-16 w-16 md:h-24 md:w-24"
 		/>
 	</div>
 {/if}
