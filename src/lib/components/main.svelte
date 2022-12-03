@@ -52,6 +52,7 @@
 
 	const copyurl = () => {
 		navigator.clipboard.writeText(document.getElementById('url')!.innerHTML);
+		document.getElementById('url')!.innerHTML = 'copied!'
 	};
 
 	export const setState = (state: number, newRound?: number) => {
@@ -130,7 +131,7 @@
 				<p class="text-xs mt-3 text-center">
 					Invite: <span
 						id="url"
-						class="underline text-blue-500"
+						class="underline text-blue-500 cursor-pointer"
 						on:keydown={copyurl}
 						on:click={copyurl}>https://aionary.com/play/{id}</span
 					>
