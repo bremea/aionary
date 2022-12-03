@@ -50,6 +50,10 @@
 		error = e;
 	};
 
+	const copyurl = () => {
+		navigator.clipboard.writeText(document.getElementById('url')!.innerHTML);
+	};
+
 	export const setState = (state: number, newRound?: number) => {
 		mainState = state;
 		if (newRound) round = newRound;
@@ -124,7 +128,12 @@
 					>
 				</div>
 				<p class="text-xs mt-3 text-center">
-					Invite: <code>https://aionary.com/play/{id}</code>
+					Invite: <span
+						id="url"
+						class="underline text-blue-500"
+						on:keydown={copyurl}
+						on:click={copyurl}>https://aionary.com/play/{id}</span
+					>
 				</p>
 			{/if}
 		</div>
