@@ -6,7 +6,7 @@
 	import Homelink from '$lib/components/homelink.svelte';
 	import Leaderboard from '$lib/components/leaderboard.svelte';
 	import Ad from '$lib/components/home/ad.svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Snow from '$lib/components/snow.svelte';
 
 	const id = $page.params.game;
@@ -28,6 +28,7 @@
 	let roundStartSound: HTMLAudioElement;
 	let correctSound: HTMLAudioElement;
 	let roundEndSound: HTMLAudioElement;
+	let g: WebSocket;
 
 	let isHoliday = $page.url.searchParams.has('holiday');
 
@@ -39,7 +40,7 @@
 		if (nmva == '' || !nmva) nmva = 'Guest';
 		window.localStorage.setItem('name', nmva);
 
-		const g = new WebSocket(`wss://ws.aionary.com/${id}`);
+		g = new WebSocket(`wss://ws.aionary.com/${id}`);
 		g.onopen = () => {
 			console.log('Connected to game instance ' + id);
 			main.connStatus!('Joining game');
@@ -161,11 +162,21 @@
 				}
 			}
 		};
+
+		g.onclose = () => {
+			location.reload();
+		}
 	};
 
 	onMount(() => {
 		chatShow = innerWidth >= 1024;
 		lbShow = innerWidth >= 1024;
+	});
+
+	onDestroy(() => {
+		if (g) {
+			g.close();
+		}
 	});
 
 	const swtab = (to: number) => {

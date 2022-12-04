@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Logo from './logo.svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
 
 	let mainState = 0;
