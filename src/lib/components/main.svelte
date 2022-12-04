@@ -188,7 +188,7 @@
 			<div class="relative w-32 h-32 lg:w-64 lg:h-64 rounded border overflow-hidden">
 				{#if mainState === 3}
 					<div
-						class="text-white text-xxs md:text-xs bg-black bg-opacity-50 absolute top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center swoop-in"
+						class="text-white text-xxs md:text-xs bg-black bg-opacity-50 flex-col absolute top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center swoop-in"
 					>
 						{#if winners.length > 0}
 							{#if winners[0]}<p class="text-center">
