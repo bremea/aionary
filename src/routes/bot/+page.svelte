@@ -10,10 +10,12 @@
 		<Logo maxSize={6} />
 		<p class="mt-3">Offical Discord bot</p>
 		<p class="text-xs mb-3">Play Pictionary with an AI right in Discord.</p>
-		<video src="/bot.mov" controls autoplay height={300} width={300} class="rounded"><track kind="captions" /></video>
+		<video src="/bot.mov" controls autoplay height={300} width={300} class="rounded"
+			><track kind="captions" /></video
+		>
 		<p class="text-xs mt-3">Add the bot below and play by typing /play</p>
 		<a
-			href="https://discord.com/api/oauth2/authorize?client_id=1046604658875056220&permissions=313344&scope=bot%20applications.commands"
+			href="/bot/invite"
 			target="_blank"
 			rel="noreferrer"
 			class="mt-3 flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-3 text-center transition hover:bg-red-400 mbtn active:scale-95"
