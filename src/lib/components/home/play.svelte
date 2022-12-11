@@ -2,7 +2,7 @@
 	<div class="flex items-center justify-center w-full flex-col md:flex-row">
 		<a
 			href="/play"
-			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-primary mbtn active:scale-95"
+			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-red-400 mbtn active:scale-95"
 		>
 			<img src="/svg/robot.svg" alt="robot" class="robot" height={64} width={64} />
 			<div class="flex flex-col items-start ml-3">
@@ -12,16 +12,15 @@
 		>
 		<!--
 		<a
-			href="/duel"
-			class="flex-grow mt-6 md:mt-0 w-full flex items-center justify-center rounded border pshadow border-primary md:ml-6 px-3 py-6 text-center transition dualbg hover:border-black mbtn active:scale-95"
+			href="/lightning"
+			class="flex-grow mt-6 md:mt-0 w-full flex items-center justify-center rounded border pshadow border-yellow-300 md:ml-6 px-3 py-6 text-center transition dualbg hover:border-black mbtn active:scale-95"
 		>
-			<img src="/svg/dual.svg" alt="swords" class="robot" height={64} width={64} />
+			<img src="/svg/lightning.svg" alt="swords" class="robot" height={64} width={64} />
 			<div class="flex flex-col items-start ml-3">
-				<p><span class="text-xs text-primary underline-none">NEW</span> Duels</p>
-				<p class="text-xs">1v1 guessing battles</p>
+				<p><span class="text-xs text-primary underline-none">ALPHA</span> Lightning Rounds</p>
+				<p class="text-xs">Fast-paced solo rounds</p>
 			</div></a
-		>
--->
+		>-->
 	</div>
 	<div class="flex items-center justify-center w-full flex-col md:flex-row mt-6">
 		<a
@@ -36,7 +35,7 @@
 		>
 		<a
 			href="/play/new"
-			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-primary mbtn active:scale-95"
+			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-gray-300 mbtn active:scale-95"
 		>
 			<img src="/svg/lock.svg" alt="lock" class="robot" height={64} width={64} />
 			<div class="flex flex-col items-start ml-3">

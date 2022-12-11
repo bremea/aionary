@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&family=Rubik+Maze&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&family=Rubik+Maze&family=Rubik+Glitch&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,6 +13,16 @@
 	text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
 }
 
+.title-font-2 {
+	font-family: 'Rubik Maze', sans-serif;
+	text-shadow: -3px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.lightning-font {
+	font-family: 'Rubik Glitch', sans-serif;
+	text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
 .mw {
 	min-width: 20%;
 }
@@ -22,20 +32,26 @@
 }
 
 .pshadow {
-	box-shadow: 0 0 10px #dc2625, inset 0 0 10px #dc2625;
+	box-shadow: 0 0 10px #fde047, inset 0 0 10px #fde047;
 }
 
 .dualbg:hover {
-	background-color: #dcdcdc;
-	background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.mbg {
-	background-image: url('/bg.svg');
+	background-color: #fde047;
+	background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FEF3C7' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 body {
 	@apply bg-primary;
+}
+
+.mbg {
+	@apply bg-primary;
+	background-image: url('/bg.svg');
+}
+
+.ybg {
+	@apply bg-yellow-300;
+	background-image: url('/bg2.svg') !important;
 }
 
 .ssh {
@@ -54,6 +70,15 @@ body {
 .mbtn:active {
 	box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
 }
+
+.mbtn-mini:hover {
+	box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.mbtn-mini:active {
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
 
 .btna {
 	@apply bg-primary;
