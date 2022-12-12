@@ -15,8 +15,8 @@ export async function POST({ request }: RequestEvent) {
 			config: {
 				image: 'registry.fly.io/aionary-gamews:latest',
 				env: {
-					'PUBLIC_GAME': 'false',
-					'SPECIAL': (bdata['gamemode'] == 'special' ? 'true' : 'false')
+					PUBLIC_GAME: 'false',
+					SPECIAL: bdata['gamemode'] == 'special' ? 'true' : 'false'
 				},
 				services: [
 					{
@@ -34,11 +34,18 @@ export async function POST({ request }: RequestEvent) {
 		},
 		'json'
 	);
-	const flyres = await flyreq.send();
-	const flyjson = await flyres.json();
-
-	return json({
-		error: false,
-		instance: flyjson['id']
-	});
+	try {
+		const flyres = await flyreq.send();
+		const flyjson = await flyres.json();
+		if (!flyjson['id']) throw new Error('Invalid ID');
+		return json({
+			error: false,
+			instance: flyjson['id']
+		});
+	} catch (e) {
+		return json({
+			error: true,
+			msg: 'Something went wrong! Try again.'
+		});
+	}
 }

@@ -2,6 +2,7 @@
 	import Logo from '$lib/components/logo.svelte';
 	import { goto } from '$app/navigation';
 	import Link from '$lib/components/link.svelte';
+	import Loading from '$lib/components/loading.svelte';
 
 	let error: string | undefined = undefined;
 	let processing = false;
@@ -50,7 +51,8 @@
 		});
 		const res = await req.json();
 		if (res.error) {
-			error = 'Something went wrong, try again.';
+			error = res.msg;
+			processing = false;
 		} else {
 			goto(`/play/${res.instance}`);
 		}
@@ -90,7 +92,7 @@
 				disabled={processing}
 				type="submit"
 				class="mt-3 w-full rounded border text-xs py-[5px] border-black px-3 text-center transition hover:bg-primary active:scale-95"
-				>Play</button
+				>{#if processing} <Loading /> {:else} Play {/if}</button
 			>
 		</form>
 	</div>
