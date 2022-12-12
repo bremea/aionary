@@ -37,6 +37,7 @@ export async function POST({ request }: RequestEvent) {
 	try {
 		const flyres = await flyreq.send();
 		const flyjson = await flyres.json();
+		console.log(flyjson);
 		if (!flyjson['id']) throw new Error('Invalid ID');
 		return json({
 			error: false,
