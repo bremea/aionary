@@ -1,4 +1,4 @@
-<div class="h-32 mb-6 mt-6 lg:mb-0 mbox flex flex-col justify-center items-center">
+<div class="h-32 mb-6 mt-6 lg:mb-0 mbox flex flex-col justify-center items-center w-full">
 	<script
 		async
 		src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5296928207981957"
@@ -6,7 +6,7 @@
 	></script>
 	<!-- hznt -->
 	<ins
-		class="adsbygoogle"
+		class="adsbygoogle w-full"
 		style="display:block"
 		data-ad-client="ca-pub-5296928207981957"
 		data-ad-slot="3595922703"
