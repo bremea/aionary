@@ -52,7 +52,7 @@
 
 	const copyurl = () => {
 		navigator.clipboard.writeText(document.getElementById('url')!.innerHTML);
-		document.getElementById('url')!.innerHTML = 'copied!'
+		document.getElementById('url')!.innerHTML = 'copied!';
 	};
 
 	export const setState = (state: number, newRound?: number) => {
@@ -139,9 +139,9 @@
 			{/if}
 		</div>
 		<img
-			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
+			src="/marty1.png"
 			alt="robot"
-			class="robot hidden lg:block absolute bottom-4 left-4 h-16 w-16 lg:h-24 lg:w-24"
+			class="robot hidden lg:block absolute bottom-0 left-0 h-16 w-16 lg:h-32 lg:w-32"
 		/>
 	</div>
 {:else if mainState === 1}
@@ -154,9 +154,9 @@
 			<p class="text-center font-bold">Round {round}</p>
 		</div>
 		<img
-			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
+			src="/marty1.png"
 			alt="robot"
-			class="robot absolute bottom-4 left-4 h-8 w-8 lg:h-24 lg:w-24"
+			class="robot absolute bottom-0 left-0 h-8 w-8 lg:h-32 lg:w-32"
 		/>
 	</div>
 {:else if mainState === 2 || mainState === 3}
@@ -233,10 +233,18 @@
 		{:else}
 			<img src={`/svg/check.svg`} alt="checkmark" class="absolute top-2 right-2 h-8 w-8" />
 		{/if}
-		<img
-			src={`/svg/${isHoliday ? 'santa' : 'robot'}.svg`}
-			alt="robot"
-			class="robot absolute bottom-4 left-4 h-8 w-8 lg:h-24 lg:w-24"
-		/>
+		{#if mainState === 3}
+			<img
+				src="/marty3.png"
+				alt="robot"
+				class="robot absolute bottom-0 left-0 h-8 w-8 lg:h-32 lg:w-32"
+			/>
+		{:else}
+			<img
+				src="/marty2.png"
+				alt="robot"
+				class="robot absolute bottom-0 left-0 h-8 w-8 lg:h-32 lg:w-32"
+			/>
+		{/if}
 	</div>
 {/if}

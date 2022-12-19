@@ -2,9 +2,9 @@
 	<div class="flex items-center justify-center w-full flex-col md:flex-row">
 		<a
 			href="/play"
-			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-red-400 mbtn active:scale-95"
+			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-3 text-center transition hover:bg-red-400 mbtn active:scale-95"
 		>
-			<img src="/svg/robot.svg" alt="robot" class="robot" height={64} width={64} />
+			<img src="/marty2.png" alt="robot" class="robot" height={100} width={100} />
 			<div class="flex flex-col items-start ml-3">
 				<p>Click here to play</p>
 				<p class="text-xs">Join random game</p>
@@ -27,7 +27,13 @@
 			href="/play?holiday"
 			class="flex-grow w-full mb-6 md:mb-0 flex items-center justify-center rounded border border-blue-400 md:mr-6 px-3 py-6 text-center transition hover:bg-blue-400 hover:border-black mbtn active:scale-95"
 		>
-			<img src="/svg/santa.svg" alt="santa" class="robot" height={64} width={64} />
+			<img
+				src="https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F385.svg"
+				alt="santa"
+				class="robot"
+				height={64}
+				width={64}
+			/>
 			<div class="flex flex-col items-start ml-3">
 				<p><span class="text-xs text-primary underline-none">NEW</span> Holiday Words</p>
 				<p class="text-xs">Limited-time game mode</p>
@@ -37,7 +43,7 @@
 			href="/play/new"
 			class="flex-grow w-full flex items-center justify-center rounded border border-black px-3 py-6 text-center transition hover:bg-gray-300 mbtn active:scale-95"
 		>
-			<img src="/svg/lock.svg" alt="lock" class="robot" height={64} width={64} />
+			<img src="https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F510.svg" alt="lock" class="robot" height={64} width={64} />
 			<div class="flex flex-col items-start ml-3">
 				<p>New private game</p>
 				<p class="text-xs">Invite-only rooms</p>
