@@ -39,8 +39,7 @@
 	};
 
 	const gamemode: { [key: string]: string } = {
-		classic: 'Classic game',
-		special: 'Holiday word list (limited time)'
+		classic: 'Classic game'
 	};
 
 	const newgame = async () => {
@@ -88,7 +87,6 @@
 			</select>
 
 			<button
-				href={''}
 				disabled={processing}
 				type="submit"
 				class="mt-3 w-full rounded border text-xs py-[5px] border-black px-3 text-center transition hover:bg-primary active:scale-95"

@@ -121,7 +121,6 @@
 						id="nameval"
 					/>
 					<button
-						href={''}
 						on:click={rJ}
 						id="namebtn"
 						class="rounded border border-black px-3 mt-2 w-full text-center transition hover:bg-primary active:scale-95"

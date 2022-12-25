@@ -11,6 +11,8 @@
 		<Logo maxSize={6} />
 		<p class="mt-3">Created By</p>
 		<p class="text-center text-xs">Brett Meadows</p>
+		<p class="mt-3">Character Art</p>
+		<p class="text-center text-xs">Jegg</p>
 		<p class="mt-3">Powered By</p>
 		<p class="text-center text-xs">Stable Diffusion & fly.io</p>
 		<p class="mt-3">Special Thanks</p>
