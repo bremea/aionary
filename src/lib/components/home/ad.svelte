@@ -1,4 +1,4 @@
-<div class="h-32 mb-6 mt-6 lg:mb-0 mbox flex flex-col justify-center items-center w-full">
+<div class="h-32 mb-6 mt-6 lg:mb-0 w-0 min-w-full mbox flex flex-col justify-center items-center">
 	<script
 		async
 		src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5296928207981957"
