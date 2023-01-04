@@ -12,7 +12,7 @@
 		>
 	</p>
 	<Link href="https://discord.gg/8uFhTkSyFy" target="_blank">Discord server</Link>
-	<Link href="https://twitter.com/playaionary" target="_blank">Offical Twitter</Link>
+	<Link href="https://twitter.com/playaionary" target="_blank">Official Twitter</Link>
 	<Link href="/credits">Credits</Link>
 	<Link href="/presskit">Presskit</Link>
 	<Link href="/legal.txt">Legal</Link>
