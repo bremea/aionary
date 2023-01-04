@@ -204,10 +204,19 @@
 			}
 		}
 	};
+
+	const flex = document.getElementById('parent') as HTMLDivElement;
+    const observer = new MutationObserver(function (mutations, observer) {
+        flex.style.height = "";
+    });
+    observer.observe(flex, {
+        attributes: true,
+        attributeFilter: ['style']
+    });
 </script>
 
 <svelte:window bind:innerWidth />
-<div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6 [&>*]:z-10">
+<div class="flex flex-col lg:flex-row w-full h-screen p-3 lg:p-6 [&>*]:z-10" id="parent">
 	<div class="lg:w-1/5 flex-col lg:h-full flex">
 		{#if innerWidth >= 1024}
 			<Homelink />
